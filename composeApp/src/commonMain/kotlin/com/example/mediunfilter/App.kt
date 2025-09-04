@@ -30,15 +30,15 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import mediunfilter.composeapp.generated.resources.Res
 import mediunfilter.composeapp.generated.resources.back_arrow
-import mediunfilter.composeapp.generated.resources.icon_account
 import mediunfilter.composeapp.generated.resources.icon_cart
-import mediunfilter.composeapp.generated.resources.icon_star_filled
-import mediunfilter.composeapp.generated.resources.icon_star_unfilled
+import mediunfilter.composeapp.generated.resources.icon_account
 import mediunfilter.composeapp.generated.resources.category_snacks
 import mediunfilter.composeapp.generated.resources.category_meal
 import mediunfilter.composeapp.generated.resources.category_vegan
 import mediunfilter.composeapp.generated.resources.category_dessert
 import mediunfilter.composeapp.generated.resources.category_drinks
+import mediunfilter.composeapp.generated.resources.icon_star_filled
+import mediunfilter.composeapp.generated.resources.icon_star_unfilled
 import mediunfilter.composeapp.generated.resources.bottom_home
 import mediunfilter.composeapp.generated.resources.bottom_search
 import mediunfilter.composeapp.generated.resources.bottom_star
@@ -55,11 +55,15 @@ fun App() {
                 .background(Color(0xFFF5CB58)),
             color = Color(0xFFF5CB58)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 24.dp)
-            ) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                // Background white panel (Rectangle 140)
+                Rectangle140Background()
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 24.dp)
+                ) {
                 Spacer(Modifier.height(24.dp))
                 // Top Bar
                 Row(
@@ -78,17 +82,21 @@ fun App() {
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFFF8F8F8)
                     )
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Image(
-                            painter = painterResource(Res.drawable.icon_cart),
-                            contentDescription = null,
-                            modifier = Modifier.size(26.dp)
-                        )
-                        Image(
-                            painter = painterResource(Res.drawable.icon_account),
-                            contentDescription = null,
-                            modifier = Modifier.size(26.dp)
-                        )
+                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+                        IconBadge {
+                            Image(
+                                painter = painterResource(Res.drawable.icon_cart),
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                        IconBadge {
+                            Image(
+                                painter = painterResource(Res.drawable.icon_account),
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
                     }
                 }
 
@@ -194,7 +202,7 @@ fun App() {
                 // Apply button
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .width(157.dp)
                         .clip(RoundedCornerShape(26.dp))
                         .background(Color(0xFFE95322))
                         .padding(vertical = 10.dp),
@@ -214,6 +222,7 @@ fun App() {
                 BottomNavigationBar()
 
                 Spacer(Modifier.height(24.dp))
+                }
             }
         }
     }
@@ -309,7 +318,7 @@ private fun BottomNavigationBar() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+            .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
             .background(Color(0xFFE95322))
             .padding(vertical = 10.dp, horizontal = 28.dp)
     ) {
@@ -324,5 +333,28 @@ private fun BottomNavigationBar() {
             Image(painter = painterResource(Res.drawable.bottom_cart), contentDescription = null, modifier = Modifier.size(24.dp))
             Image(painter = painterResource(Res.drawable.bottom_profile), contentDescription = null, modifier = Modifier.size(24.dp))
         }
+    }
+}
+
+@Composable
+private fun Rectangle140Background() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 110.dp)
+            .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+            .background(Color(0xFFF8F8F8))
+    )
+}
+@Composable
+private fun IconBadge(content: @Composable () -> Unit) {
+    Box(
+        modifier = Modifier
+            .size(26.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(Color(0xFFFFFFFF)),
+        contentAlignment = Alignment.Center
+    ) {
+        content()
     }
 }
