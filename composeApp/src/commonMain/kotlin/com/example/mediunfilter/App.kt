@@ -341,7 +341,7 @@ private fun Rectangle140Background() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 110.dp)
+            .padding(top = 70.dp)
             .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
             .background(Color(0xFFF8F8F8))
     )
